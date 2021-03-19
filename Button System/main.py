@@ -42,6 +42,23 @@ class Button:
             pygame.draw.rect(screen, self.click_border_color, (self.x, self.y, self.w, self.h), self.border_radius)
 
 
+def button_click_check(ev): # pass event of the event checking loop to funcion and put function into event loop
+    for b in buttons:
+        if b.rect.collidepoint(pygame.mouse.get_pos()):
+            if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 1:
+                b.clicked = True
+                click.play()
+            if ev.type == pygame.MOUSEBUTTONUP and ev.button == 1:
+                b.clicked = False
+        else:
+            b.clicked = False
+
+
+def render_buttons():
+    for b in buttons:
+        b.render()
+
+
 button = Button(500, 250, 100, 50)
 button2 = Button(350, 250, 100, 50)
 run = True
@@ -49,19 +66,10 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-        for b in buttons:
-            if b.rect.collidepoint(pygame.mouse.get_pos()):
-                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    b.clicked = True
-                    click.play()
-                if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-                    b.clicked = False
-            else:
-                b.clicked = False
+        button_click_check(event)
 
     screen.fill((0, 0, 0))
-    for b in buttons:
-        b.render()
+    render_buttons()
     pygame.display.update()
     pygame.time.Clock().tick(60)
 pygame.quit()
