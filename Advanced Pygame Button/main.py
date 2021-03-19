@@ -12,7 +12,7 @@ screen = pygame.display.set_mode((1000, 500))
 pygame.display.set_caption("Pygame Button Test")
 icon = pygame.image.load("img/icon.png")
 pygame.display.set_icon(icon)
-click = pygame.mixer.Sound("aud/plastic click.wav")
+click = pygame.mixer.Sound("aud/sounds/plastic click.wav")
 buttons = []
 
 
