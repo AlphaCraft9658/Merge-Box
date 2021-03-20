@@ -1,4 +1,5 @@
 import os
+import threading
 from time import sleep
 try:
     os.system("pip install pygame")
@@ -25,10 +26,11 @@ buttons = []
 
 
 # define class for clickable buttons
-# pass arguments this way: ((button x, button y, button width, height), (border width, radius), ((button r, g, b),/
-# (button hover r, g, b), (button click r, g, b), (border r, g, b), (border hover r, g, b), (border click r, g, b))/
-# (text, (text r, g, b), size, font)
 class Button:
+    # don't forget to import pygame, threading and time.sleep to use this system yourself
+    # pass arguments this way: ((button x, button y, button width, height), (border width, radius), ((button r, g, b),/
+    # (button hover r, g, b), (button click r, g, b), (border r, g, b), (border hover r, g, b), (border click r, g, b))/
+    # (text, (text r, g, b), size, font)
     def __init__(self, box=(0, 0, 10, 50), border=(5, 5), colors=((225, 225, 225), (200, 200, 200), (180, 180, 180), (180, 180, 180), (170, 170, 170), (130, 130, 130)), text=("", (0, 0, 0), 0, "")):
         try:
             if not (type(box) == tuple and len(box) == 4 and [True for i in box if type(i) == int]):
