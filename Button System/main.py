@@ -61,19 +61,23 @@ class Button:
         self.text_size = text[2]
         self.text_font = text[3]
         self.clicked = False
+        self.hover = False
         self.rect = pygame.Rect(self.x, self.y, self.w, self.h)
         buttons.append(self)
 
     def render(self):
-        if not self.clicked:
-            pygame.draw.rect(screen, self.color, (self.x, self.y, self.w, self.h))
-            pygame.draw.rect(screen, self.border_color, (self.x, self.y, self.w, self.h), self.border_radius)
-        else:
+        if self.clicked:
             pygame.draw.rect(screen, self.click_color, (self.x, self.y, self.w, self.h))
             pygame.draw.rect(screen, self.border_click_color, (self.x, self.y, self.w, self.h), self.border_radius)
+        elif self.hover:
+            pygame.draw.rect(screen, self.hover_color, self.rect)
+            pygame.draw.rect(screen, self.border_hover_color, self.rect, self.border_radius)
+        else:
+            pygame.draw.rect(screen, self.color, self.rect)
+            pygame.draw.rect(screen, self.border_color, self.rect, self.border_radius)
 
 
-def button_click_check(ev):  # pass event of the event checking loop to function and put function into event loop
+def button_check(ev):  # pass event of the event checking loop to function and put function into event loop
     for b in buttons:
         if b.rect.collidepoint(pygame.mouse.get_pos()):
             if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 1:
@@ -83,6 +87,10 @@ def button_click_check(ev):  # pass event of the event checking loop to function
                 b.clicked = False
         else:
             b.clicked = False
+        if b.rect.collidepoint(pygame.mouse.get_pos()):
+            b.hover = True
+        else:
+            b.hover = False
 
 
 def render_buttons():  # use somewhere after screen reset and before screen update
@@ -97,7 +105,7 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-        button_click_check(event)
+        button_check(event)
 
     screen.fill((0, 0, 0))
     render_buttons()
