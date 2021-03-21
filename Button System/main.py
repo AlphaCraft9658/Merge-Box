@@ -35,7 +35,7 @@ class Button:
                  ((225, 225, 225), (200, 200, 200),
                  (180, 180, 180), (180, 180, 180),
                  (170, 170, 170), (130, 130, 130)),
-                 text: tuple[str, tuple, int, str] = ("", (0, 0, 0), 0, "")):
+                 text: tuple[str, tuple[int, int, int], int, str] = ("", (0, 0, 0), 0, "")):
 #        try:
 #            if not (len(box) == 4 and [True for i in box if type(i) == int]):
 #                if not (len(border) == 2 and [True for i in border if type(i) == int]):
