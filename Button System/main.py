@@ -30,19 +30,24 @@ class Button:
     # pass arguments this way: ((button x, button y, button width, height), (border width, radius), ((button r, g, b),/
     # (button hover r, g, b), (button click r, g, b), (border r, g, b), (border hover r, g, b), (border click r, g, b))/
     # (text, (text r, g, b), size, font)
-    def __init__(self, box=(0, 0, 10, 50), border=(5, 5), colors=((225, 225, 225), (200, 200, 200), (180, 180, 180), (180, 180, 180), (170, 170, 170), (130, 130, 130)), text=("", (0, 0, 0), 0, "")):
-        try:
-            if not (type(box) == tuple and len(box) == 4 and [True for i in box if type(i) == int]):
-                if not (type(border) == tuple and len(border) == 2 and [True for i in border if type(i) == int]):
-                    if not (type(colors) == tuple and len(colors) == 6 and [True for i in [n for n in [v for v in colors]] if type(i) == int]):
-                        if not (type(text) == tuple and type(text[0]) == str and type(text[1]) == tuple and [True for i in text[1] if type(i) == int] and type(text[2]) == int and type(text[3]) == str and (text[3] in pygame.font.get_fonts() or text[3] == "")):
-                            print(f"{Fore.RED}=== invalid button construction! ===")
-                            pygame.quit(); sleep(3)
-                            exit()
-        except:
-            print(f"{Fore.RED}=== invalid button construction! ===")
-            pygame.quit(); sleep(3)
-            exit()
+    def __init__(self, box: tuple[int, int, int, int] = (0, 0, 10, 50), border: tuple = (5, 5),
+                 colors: tuple[tuple[int, int, int], tuple[int, int, int], tuple[int, int, int], tuple[int, int, int], tuple[int, int, int], tuple[int, int, int]] =
+                 ((225, 225, 225), (200, 200, 200),
+                 (180, 180, 180), (180, 180, 180),
+                 (170, 170, 170), (130, 130, 130)),
+                 text: tuple[str, tuple, int, str] = ("", (0, 0, 0), 0, "")):
+#        try:
+#            if not (len(box) == 4 and [True for i in box if type(i) == int]):
+#                if not (len(border) == 2 and [True for i in border if type(i) == int]):
+#                    if not (len(colors) == 6 and [True for i in [n for n in [v for v in colors]] if type(i) == int]):
+#                        if not (type(text[0]) == str and type(text[1]) == tuple and [True for i in text[1] if type(i) == int] and type(text[2]) == int and type(text[3]) == str and (text[3] in pygame.font.get_fonts() or text[3] == "")):
+#                            print(f"{Fore.RED}=== invalid button construction! ===")
+#                            pygame.quit(); sleep(3)
+#                            exit()
+#        except:
+#            print(f"{Fore.RED}=== invalid button construction! ===")
+#            pygame.quit(); sleep(3)
+#            exit()
         self.x = box[0]
         self.y = box[1]
         self.w = box[2]
@@ -74,6 +79,9 @@ class Button:
         else:
             pygame.draw.rect(screen, self.color, self.rect)
             pygame.draw.rect(screen, self.border_color, self.rect, self.border_radius)
+        font = pygame.font.SysFont("Arial", 42)
+        text = font.render("Test", True, self.text_color)
+        screen.blit(text, self.rect)
 
 
 def button_check(ev):  # pass event of the event checking loop to function and put function into event loop
