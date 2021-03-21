@@ -67,9 +67,11 @@ class Button:
         else:
             pygame.draw.rect(screen, self.color, self.rect)
             pygame.draw.rect(screen, self.border_color, self.rect, self.border_radius)
-        font = pygame.font.SysFont("Arial", 42)
-        text = font.render("Test", True, self.text_color)
-        screen.blit(text, self.rect)
+        font = pygame.font.SysFont(self.text_font, self.text_size)
+        text = font.render(self.text, True, self.text_color)
+        text_rect = text.get_rect()
+        text_rect.center = self.rect.center
+        screen.blit(text, text_rect)
 
 
 def button_check(ev):  # pass event of the event checking loop to function and put function into event loop
@@ -93,8 +95,8 @@ def render_buttons():  # use somewhere after screen reset and before screen upda
         b.render()
 
 
-button = Button((500, 250, 100, 50))
-button2 = Button((350, 250, 100, 50))
+button = Button((500, 250, 200, 100), text=("Test", (0, 0, 0), 70, "Sans-Serif"))
+button2 = Button((350, 250, 100, 50), text=("Test123", (0, 0, 0), 42, "Sans-Serif"))
 run = True
 while run:
     for event in pygame.event.get():
