@@ -36,18 +36,6 @@ class Button:
                  (180, 180, 180), (180, 180, 180),
                  (170, 170, 170), (130, 130, 130)),
                  text: tuple[str, tuple[int, int, int], int, str] = ("", (0, 0, 0), 0, "")):
-#        try:
-#            if not (len(box) == 4 and [True for i in box if type(i) == int]):
-#                if not (len(border) == 2 and [True for i in border if type(i) == int]):
-#                    if not (len(colors) == 6 and [True for i in [n for n in [v for v in colors]] if type(i) == int]):
-#                        if not (type(text[0]) == str and type(text[1]) == tuple and [True for i in text[1] if type(i) == int] and type(text[2]) == int and type(text[3]) == str and (text[3] in pygame.font.get_fonts() or text[3] == "")):
-#                            print(f"{Fore.RED}=== invalid button construction! ===")
-#                            pygame.quit(); sleep(3)
-#                            exit()
-#        except:
-#            print(f"{Fore.RED}=== invalid button construction! ===")
-#            pygame.quit(); sleep(3)
-#            exit()
         self.x = box[0]
         self.y = box[1]
         self.w = box[2]
