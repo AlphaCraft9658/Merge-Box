@@ -1,4 +1,5 @@
 import os
+import threading
 from time import sleep
 try:
     os.system("pip install pygame")
@@ -26,7 +27,7 @@ buttons = []
 
 # define class for clickable buttons
 class Button:
-    # don't forget to import pygame and time.sleep to use this system yourself
+    # don't forget to import pygame, threading and time.sleep to use this system yourself
     # pass arguments this way: ((button x, button y, button width, height), (border width, radius), ((button r, g, b),/
     # (button hover r, g, b), (button click r, g, b), (border r, g, b), (border hover r, g, b), (border click r, g, b))/
     # (text, (text r, g, b), size, font)
@@ -72,7 +73,7 @@ class Button:
             pygame.draw.rect(screen, self.border_click_color, (self.x, self.y, self.w, self.h), self.border_radius)
 
 
-def button_click_check(ev): # pass event of the event checking loop to function and put function into event loop
+def button_click_check(ev):  # pass event of the event checking loop to function and put function into event loop
     for b in buttons:
         if b.rect.collidepoint(pygame.mouse.get_pos()):
             if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 1:
@@ -84,7 +85,7 @@ def button_click_check(ev): # pass event of the event checking loop to function 
             b.clicked = False
 
 
-def render_buttons():
+def render_buttons():  # use somewhere after screen reset and before screen update
     for b in buttons:
         b.render()
 
