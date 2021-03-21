@@ -1,5 +1,4 @@
 import os
-from time import sleep
 try:
     os.system("pip install pygame")
     import pygame
@@ -26,7 +25,7 @@ buttons = []
 
 # define class for clickable buttons
 class Button:
-    # don't forget to import pygame and time.sleep to use this system yourself
+    # don't forget to import pygame to use this system yourself
     # pass arguments this way: ((button x, button y, button width, height), (border width, radius), ((button r, g, b),/
     # (button hover r, g, b), (button click r, g, b), (border r, g, b), (border hover r, g, b), (border click r, g, b))/
     # (text, (text r, g, b), size, font), event
