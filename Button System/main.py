@@ -1,5 +1,4 @@
 import os
-import threading
 from time import sleep
 try:
     os.system("pip install pygame")
