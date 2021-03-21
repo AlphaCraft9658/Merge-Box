@@ -29,13 +29,14 @@ class Button:
     # don't forget to import pygame and time.sleep to use this system yourself
     # pass arguments this way: ((button x, button y, button width, height), (border width, radius), ((button r, g, b),/
     # (button hover r, g, b), (button click r, g, b), (border r, g, b), (border hover r, g, b), (border click r, g, b))/
-    # (text, (text r, g, b), size, font)
+    # (text, (text r, g, b), size, font), event
+    # pass a separate declared function or a lambda for "event" to make it work the way you want
     def __init__(self, box: tuple[int, int, int, int] = (0, 0, 10, 50), border: tuple = (5, 5),
                  colors: tuple[tuple[int, int, int], tuple[int, int, int], tuple[int, int, int], tuple[int, int, int], tuple[int, int, int], tuple[int, int, int]] =
                  ((225, 225, 225), (200, 200, 200),
                  (180, 180, 180), (180, 180, 180),
                  (170, 170, 170), (130, 130, 130)),
-                 text: tuple[str, tuple[int, int, int], int, str] = ("", (0, 0, 0), 0, "")):
+                 text: tuple[str, tuple[int, int, int], int, str] = ("", (0, 0, 0), 0, ""), click_event=(lambda: print("Button Pressed"))):
         self.x = box[0]
         self.y = box[1]
         self.w = box[2]
@@ -54,6 +55,7 @@ class Button:
         self.text_font = text[3]
         self.clicked = False
         self.hover = False
+        self.click_event = click_event
         self.rect = pygame.Rect(self.x, self.y, self.w, self.h)
         buttons.append(self)
 
@@ -80,6 +82,7 @@ def button_check(ev):  # pass event of the event checking loop to function and p
             if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 1:
                 b.clicked = True
                 click.play()
+                b.click_event()
             if ev.type == pygame.MOUSEBUTTONUP and ev.button == 1:
                 b.clicked = False
         else:
@@ -96,7 +99,7 @@ def render_buttons():  # use somewhere after screen reset and before screen upda
 
 
 button = Button((500, 250, 200, 100), text=("Test", (0, 0, 0), 70, "Sans-Serif"))
-button2 = Button((350, 250, 100, 50), text=("Test123", (0, 0, 0), 42, "Sans-Serif"))
+button2 = Button((350, 250, 100, 50), text=("Test123", (0, 0, 0), 36, "Sans-Serif"), click_event=(lambda: print("Test123")))
 run = True
 while run:
     for event in pygame.event.get():
