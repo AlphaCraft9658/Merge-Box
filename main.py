@@ -5,7 +5,8 @@ pygame.init()
 screen = pygame.display.set_mode((1000, 750))
 pygame.display.set_caption("Merge-Box")
 icon = pygame.image.load("img/icon.png")
-button1 = Button(screen)
+button1 = Button(screen, (0, 0, 100, 50))
+button1.rect.center = (screen.get_width() / 2, screen.get_height() / 2)
 
 
 def reset_window():

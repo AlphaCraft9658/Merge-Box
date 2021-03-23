@@ -38,10 +38,6 @@ class Button:
                  (170, 170, 170), (130, 130, 130)),
                  text: tuple[str, tuple[int, int, int], int, str] = ("", (0, 0, 0), 0, ""), click_event=(lambda: print("Button Pressed"))):
         self.screen = screen
-        self.x = box[0]
-        self.y = box[1]
-        self.w = box[2]
-        self.h = box[3]
         self.border_width = border[0]
         self.border_radius = border[1]
         self.color = colors[0]
@@ -57,13 +53,13 @@ class Button:
         self.clicked = False
         self.hover = False
         self.click_event = click_event
-        self.rect = pygame.Rect(self.x, self.y, self.w, self.h)
+        self.rect = pygame.Rect(box[0], box[1], box[2], box[3])
         buttons.append(self)
 
     def render(self):
         if self.clicked:
-            pygame.draw.rect(self.screen, self.click_color, (self.x, self.y, self.w, self.h))
-            pygame.draw.rect(self.screen, self.border_click_color, (self.x, self.y, self.w, self.h), self.border_radius)
+            pygame.draw.rect(self.screen, self.click_color, self.rect)
+            pygame.draw.rect(self.screen, self.border_click_color, self.rect, self.border_radius)
         elif self.hover:
             pygame.draw.rect(self.screen, self.hover_color, self.rect)
             pygame.draw.rect(self.screen, self.border_hover_color, self.rect, self.border_radius)
