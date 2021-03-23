@@ -15,10 +15,11 @@ else:
         print("All libraries imported/installed successfully!")
 
 pygame.init()
-screen = pygame.display.set_mode((1000, 500))
-pygame.display.set_caption("Pygame Button Test")
-icon = pygame.image.load("img/icon.png")
-pygame.display.set_icon(icon)
+if __name__ == "__main__":
+    screen = pygame.display.set_mode((1000, 500))
+    pygame.display.set_caption("Pygame Button Test")
+    icon = pygame.image.load("img/icon.png")
+    pygame.display.set_icon(icon)
 click = pygame.mixer.Sound("aud/sounds/plastic click.wav")
 buttons = []
 
@@ -30,12 +31,13 @@ class Button:
     # (button hover r, g, b), (button click r, g, b), (border r, g, b), (border hover r, g, b), (border click r, g, b))/
     # (text, (text r, g, b), size, font), event
     # pass a separate declared function or a lambda for "event" to make it work the way you want
-    def __init__(self, box: tuple[int, int, int, int] = (0, 0, 10, 50), border: tuple = (5, 5),
+    def __init__(self, screen, box: tuple[int, int, int, int] = (0, 0, 100, 50), border: tuple = (5, 5),
                  colors: tuple[tuple[int, int, int], tuple[int, int, int], tuple[int, int, int], tuple[int, int, int], tuple[int, int, int], tuple[int, int, int]] =
                  ((225, 225, 225), (200, 200, 200),
                  (180, 180, 180), (180, 180, 180),
                  (170, 170, 170), (130, 130, 130)),
                  text: tuple[str, tuple[int, int, int], int, str] = ("", (0, 0, 0), 0, ""), click_event=(lambda: print("Button Pressed"))):
+        self.screen = screen
         self.x = box[0]
         self.y = box[1]
         self.w = box[2]
@@ -60,19 +62,19 @@ class Button:
 
     def render(self):
         if self.clicked:
-            pygame.draw.rect(screen, self.click_color, (self.x, self.y, self.w, self.h))
-            pygame.draw.rect(screen, self.border_click_color, (self.x, self.y, self.w, self.h), self.border_radius)
+            pygame.draw.rect(self.screen, self.click_color, (self.x, self.y, self.w, self.h))
+            pygame.draw.rect(self.screen, self.border_click_color, (self.x, self.y, self.w, self.h), self.border_radius)
         elif self.hover:
-            pygame.draw.rect(screen, self.hover_color, self.rect)
-            pygame.draw.rect(screen, self.border_hover_color, self.rect, self.border_radius)
+            pygame.draw.rect(self.screen, self.hover_color, self.rect)
+            pygame.draw.rect(self.screen, self.border_hover_color, self.rect, self.border_radius)
         else:
-            pygame.draw.rect(screen, self.color, self.rect)
-            pygame.draw.rect(screen, self.border_color, self.rect, self.border_radius)
+            pygame.draw.rect(self.screen, self.color, self.rect)
+            pygame.draw.rect(self.screen, self.border_color, self.rect, self.border_radius)
         font = pygame.font.SysFont(self.text_font, self.text_size)
         text = font.render(self.text, True, self.text_color)
         text_rect = text.get_rect()
         text_rect.center = self.rect.center
-        screen.blit(text, text_rect)
+        self.screen.blit(text, text_rect)
 
 
 def button_check(ev):  # pass event of the event checking loop to function and put function into event loop
@@ -97,17 +99,18 @@ def render_buttons():  # use somewhere after screen reset and before screen upda
         b.render()
 
 
-button = Button((500, 250, 200, 100), text=("Test", (0, 0, 0), 70, "Sans-Serif"))
-button2 = Button((350, 250, 100, 50), text=("Test123", (0, 0, 0), 36, "Sans-Serif"), click_event=(lambda: print("Test123")))
-run = True
-while run:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
-        button_check(event)
+if __name__ == "__main__":
+    button = Button((500, 250, 200, 100), text=("Test", (0, 0, 0), 70, "Sans-Serif"))
+    button2 = Button((350, 250, 100, 50), text=("Test123", (0, 0, 0), 36, "Sans-Serif"), click_event=(lambda: print("Test123")))
+    run = True
+    while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            button_check(event)
 
-    screen.fill((0, 0, 0))
-    render_buttons()
-    pygame.display.update()
-    pygame.time.Clock().tick(60)
-pygame.quit()
+        screen.fill((0, 0, 0))
+        render_buttons()
+        pygame.display.update()
+        pygame.time.Clock().tick(60)
+    pygame.quit()
