@@ -1,12 +1,12 @@
 import os
 try:
-    os.system("pip install pygame")
+    os.system("python -m pip install pygame")
     import pygame
 except:
     print("Error with importing/installing required libraries. Try to install pygame manually.")
 else:
     try:
-        os.system("pip install colorama")
+        os.system("python -m pip install colorama")
         import colorama
         from colorama import Fore, Back, Style
     except:
