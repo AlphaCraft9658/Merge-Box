@@ -1,2 +1,2 @@
 # Merge-Box
-The game is in work and first a button system for the game is in work.
+The game was moved to GitLab. See it here -> https://gitlab.com/Alpha-Craft/Merge-Box
